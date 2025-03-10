@@ -1,14 +1,12 @@
 package com.travelonna.demo.domain.user.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "user")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -25,7 +23,10 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    public void updateName(String name) {
-        this.name = name;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Profile profile;
+
+    public void updateName(String newName) {
+        this.name = newName;
     }
-} 
+}
